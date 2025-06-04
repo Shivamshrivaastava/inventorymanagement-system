@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { toggleLowInventory, deleteProduct, Product } from '../store/slices/productsSlice';
+import { toggleLowInventory, deleteProduct } from '../store/slices/productsSlice';
+import { Product } from '../types/product';
 import ProductCard from '../components/ProductCard';
 import EditProductModal from '../components/EditProductModal';
 
@@ -26,11 +27,11 @@ const LowInventory = () => {
     setIsEditOpen(true);
   };
 
-  const handleToggleLowInventory = (id: number) => {
+  const handleToggleLowInventory = (id: string) => {
     dispatch(toggleLowInventory(id));
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteProduct(id));
   };
 

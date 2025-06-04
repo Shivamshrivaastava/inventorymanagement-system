@@ -23,13 +23,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './ui/alert-dialog';
-import { Product } from '../store/slices/productsSlice';
+import { Product } from '../types/product';
 
 interface ProductCardProps {
   product: Product;
   onEdit: (product: Product) => void;
-  onToggleLowInventory: (id: number) => void;
-  onDelete: (id: number) => void;
+  onToggleLowInventory: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 const ProductCard = ({ product, onEdit, onToggleLowInventory, onDelete }: ProductCardProps) => {

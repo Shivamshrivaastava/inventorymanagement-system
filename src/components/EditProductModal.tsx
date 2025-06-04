@@ -1,14 +1,15 @@
+
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogTitle,
   Button,
   Input,
   VStack,
-  HStack,
+  Box,
   Text,
   Textarea,
 } from '@chakra-ui/react';
@@ -27,28 +28,36 @@ import {
 interface EditProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  product: Product;
+  product: Product | null;
 }
 
 const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    stock: product.stock,
-    category: product.category,
+    name: product?.name || '',
+    title: product?.title || '',
+    description: product?.description || '',
+    price: product?.price || 0,
+    stock: product?.stock || 0,
+    quantity: product?.quantity || 0,
+    category: product?.category || '',
+    imageUrl: product?.imageUrl || '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!product) return;
+    
     const updatedProduct: Product = {
       ...product,
       name: formData.name,
+      title: formData.title,
       description: formData.description,
       price: formData.price,
       stock: formData.stock,
+      quantity: formData.quantity,
       category: formData.category,
+      imageUrl: formData.imageUrl,
       lowInventory: formData.stock < 10,
     };
     
@@ -56,19 +65,27 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
     onClose();
   };
 
+  if (!product) return null;
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg">
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Edit Product</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
+    <DialogRoot open={isOpen} onOpenChange={(e) => !e.open && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Product</DialogTitle>
+          <DialogCloseTrigger />
+        </DialogHeader>
+        <DialogBody pb={6}>
           <form onSubmit={handleSubmit}>
             <VStack gap={4}>
               <Input
                 placeholder="Product Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+              <Input
+                placeholder="Product Title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               />
               <Textarea
                 placeholder="Description"
@@ -87,6 +104,17 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                 value={formData.stock}
                 onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) })}
               />
+              <Input
+                placeholder="Quantity"
+                type="number"
+                value={formData.quantity}
+                onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) })}
+              />
+              <Input
+                placeholder="Image URL"
+                value={formData.imageUrl}
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+              />
               <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Category" />
@@ -104,9 +132,9 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
               </Button>
             </VStack>
           </form>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 

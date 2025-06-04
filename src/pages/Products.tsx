@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react';
 import { useState, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { toggleLowInventory, setCurrentPage, deleteProduct, Product } from '../store/slices/productsSlice';
+import { setCurrentPage, deleteProduct } from '../store/slices/productsSlice';
+import { Product } from '../types/product';
 import ProductCard from '../components/ProductCard';
 import AddProductModal from '../components/AddProductModal';
 import EditProductModal from '../components/EditProductModal';
-import FilterSortControls from '../components/FilterSortControls';
+import ProductFilters from '../components/ProductFilters';
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -23,11 +24,6 @@ const Products = () => {
     products,
     currentPage,
     productsPerPage,
-    sortBy,
-    sortOrder,
-    filterMinPrice,
-    filterMaxPrice,
-    filterMinQuantity,
   } = useAppSelector((state) => state.products);
 
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -35,30 +31,8 @@ const Products = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const filteredAndSortedProducts = useMemo(() => {
-    let filtered = products.filter(product => 
-      product.price >= filterMinPrice &&
-      product.price <= filterMaxPrice &&
-      product.quantity >= filterMinQuantity
-    );
-
-    filtered.sort((a, b) => {
-      let aValue = a[sortBy];
-      let bValue = b[sortBy];
-      
-      if (typeof aValue === 'string') {
-        aValue = aValue.toLowerCase();
-        bValue = (bValue as string).toLowerCase();
-      }
-      
-      if (sortOrder === 'asc') {
-        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-      } else {
-        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
-      }
-    });
-
-    return filtered;
-  }, [products, sortBy, sortOrder, filterMinPrice, filterMaxPrice, filterMinQuantity]);
+    return products;
+  }, [products]);
 
   const totalPages = Math.ceil(filteredAndSortedProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
@@ -70,11 +44,12 @@ const Products = () => {
     setIsEditOpen(true);
   };
 
-  const handleToggleLowInventory = (id: number) => {
-    dispatch(toggleLowInventory(id));
+  const handleToggleLowInventory = (id: string) => {
+    // This will be implemented when we add the action
+    console.log('Toggle low inventory for:', id);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteProduct(id));
   };
 
@@ -115,7 +90,7 @@ const Products = () => {
             </Button>
           </Flex>
 
-          <FilterSortControls />
+          <ProductFilters onAddProduct={() => setIsAddOpen(true)} />
 
           {currentProducts.length === 0 ? (
             <Box 

@@ -24,9 +24,13 @@ interface AddProductModalProps {
 const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
+    name: '',
     title: '',
+    description: '',
     price: 0,
+    stock: 0,
     quantity: 0,
+    category: '',
     imageUrl: '',
   });
 
@@ -49,13 +53,20 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
     }
 
     dispatch(addProduct({
-      ...formData,
+      name: formData.name,
+      title: formData.title,
+      description: formData.description,
+      price: formData.price,
+      stock: formData.stock,
+      quantity: formData.quantity,
+      category: formData.category,
       imageUrl: formData.imageUrl || 'https://via.placeholder.com/400x200?text=Product+Image',
+      image: formData.imageUrl,
       lowInventory: false,
     }));
 
     alert('Product added successfully');
-    setFormData({ title: '', price: 0, quantity: 0, imageUrl: '' });
+    setFormData({ name: '', title: '', description: '', price: 0, stock: 0, quantity: 0, category: '', imageUrl: '' });
     onClose();
   };
 
@@ -88,12 +99,48 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
             <VStack gap={6}>
               <Box width="full">
                 <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  📝 Product Name *
+                </Text>
+                <Input
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Enter product name"
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
+                />
+              </Box>
+
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
                   📝 Product Title *
                 </Text>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
+                />
+              </Box>
+
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  📝 Description
+                </Text>
+                <Input
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Enter description"
                   size="lg"
                   borderRadius="xl"
                   bg="gray.50"
@@ -131,6 +178,26 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) || 0 })}
                   placeholder="Enter price"
+                  min={0}
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
+                />
+              </Box>
+
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  📦 Stock *
+                </Text>
+                <Input
+                  type="number"
+                  value={formData.stock}
+                  onChange={(e) => setFormData({ ...formData, stock: Number(e.target.value) || 0 })}
+                  placeholder="Enter stock"
                   min={0}
                   size="lg"
                   borderRadius="xl"

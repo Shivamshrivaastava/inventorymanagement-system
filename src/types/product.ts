@@ -8,4 +8,7 @@ export interface Product {
   category: string;
   lowInventory: boolean;
   image?: string;
+  title: string;
+  quantity: number;
+  imageUrl: string;
 }
