@@ -1,4 +1,3 @@
-
 import {
   Container,
   VStack,
@@ -11,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setCurrentPage, deleteProduct } from '../store/slices/productsSlice';
+import { setCurrentPage, deleteProduct, toggleLowInventory } from '../store/slices/productsSlice';
 import { Product } from '../types/product';
 import ProductCard from '../components/ProductCard';
 import AddProductModal from '../components/AddProductModal';
@@ -45,8 +44,7 @@ const Products = () => {
   };
 
   const handleToggleLowInventory = (id: string) => {
-    // This will be implemented when we add the action
-    console.log('Toggle low inventory for:', id);
+    dispatch(toggleLowInventory(id));
   };
 
   const handleDelete = (id: string) => {
