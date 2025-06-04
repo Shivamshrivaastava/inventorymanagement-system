@@ -10,27 +10,35 @@ import LowInventory from './pages/LowInventory';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
+const AppContent = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={
+        <ProtectedRoute>
+          <>
+            <Navigation />
+            <Products />
+          </>
+        </ProtectedRoute>
+      } />
+      <Route path="/low-inventory" element={
+        <ProtectedRoute>
+          <>
+            <Navigation />
+            <LowInventory />
+          </>
+        </ProtectedRoute>
+      } />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
+);
+
 const App = () => (
   <Provider store={store}>
     <ChakraProvider value={defaultSystem}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Navigation />
-              <Products />
-            </ProtectedRoute>
-          } />
-          <Route path="/low-inventory" element={
-            <ProtectedRoute>
-              <Navigation />
-              <LowInventory />
-            </ProtectedRoute>
-          } />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AppContent />
     </ChakraProvider>
   </Provider>
 );
