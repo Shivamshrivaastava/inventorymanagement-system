@@ -1,73 +1,163 @@
-# Welcome to your Lovable project
 
-## Project info
+# Inventory Management Application
 
-**URL**: https://lovable.dev/projects/e4e22a25-d5ee-48e4-a8d7-46f554c0df48
+A comprehensive inventory management system built with React, Redux Toolkit, and Chakra UI. This application allows you to manage product inventory with features like pagination, filtering, sorting, and low inventory tracking.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+### Core Functionality
+- **Product Display**: View products in a responsive card layout with product details
+- **Pagination**: Navigate through products with customizable items per page (5, 10, 15, 20)
+- **Add Products**: Create new products using a modal form
+- **Edit Products**: Modify existing product details (title, price, quantity)
+- **Low Inventory Tracking**: Mark products as needing replenishment and view them on a separate page
 
-**Use Lovable**
+### Advanced Features
+- **Filtering**: Filter products by price range and minimum quantity
+- **Sorting**: Sort products by title, price, or quantity in ascending/descending order
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Real-time Updates**: State managed with Redux for consistent data flow
+- **Toast Notifications**: User feedback for successful operations and errors
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e4e22a25-d5ee-48e4-a8d7-46f554c0df48) and start prompting.
+## Technology Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React 18 with TypeScript
+- **State Management**: Redux Toolkit
+- **UI Library**: Chakra UI
+- **Routing**: React Router v6
+- **Build Tool**: Vite
+- **Styling**: Emotion (included with Chakra UI)
 
-**Use your preferred IDE**
+## Project Structure
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```
+src/
+├── components/           # Reusable UI components
+│   ├── ProductCard.tsx
+│   ├── AddProductModal.tsx
+│   ├── EditProductModal.tsx
+│   ├── FilterSortControls.tsx
+│   └── Navigation.tsx
+├── data/                # Static data
+│   └── products.json
+├── pages/               # Page components
+│   ├── Products.tsx
+│   ├── LowInventory.tsx
+│   └── Index.tsx
+├── store/               # Redux store configuration
+│   ├── store.ts
+│   ├── hooks.ts
+│   └── slices/
+│       └── productsSlice.ts
+└── App.tsx
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Getting Started
 
-Follow these steps:
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd inventory-management-app
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install dependencies
+```bash
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Usage Guide
 
-**Use GitHub Codespaces**
+### Managing Products
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. **View Products**: The main page displays all products with pagination
+2. **Add Product**: Click "Add Product" button to open the creation modal
+3. **Edit Product**: Click "Edit" on any product card to modify details
+4. **Mark Low Inventory**: Use "Mark Low" button to flag products needing replenishment
 
-## What technologies are used for this project?
+### Filtering and Sorting
 
-This project is built with:
+1. **Sort**: Choose sort criteria (title, price, quantity) and order (ascending/descending)
+2. **Filter by Price**: Set minimum and maximum price ranges
+3. **Filter by Quantity**: Set minimum quantity threshold
+4. **Items per Page**: Choose how many products to display per page
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Low Inventory Management
 
-## How can I deploy this project?
+1. Navigate to "Low Inventory" page using the top navigation
+2. View all products marked as needing replenishment
+3. The badge shows the count of low inventory items
+4. Remove items from low inventory by clicking "Remove Flag"
 
-Simply open [Lovable](https://lovable.dev/projects/e4e22a25-d5ee-48e4-a8d7-46f554c0df48) and click on Share -> Publish.
+## Data Structure
 
-## Can I connect a custom domain to my Lovable project?
+Each product contains:
+```typescript
+{
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  lowInventory: boolean;
+}
+```
 
-Yes, you can!
+## Redux State Management
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The application uses Redux Toolkit for state management with the following structure:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- **Products Array**: Complete list of all products
+- **Pagination State**: Current page and items per page
+- **Sorting State**: Sort field and order
+- **Filter State**: Price and quantity filters
+
+## Responsive Design
+
+The application is fully responsive with breakpoints:
+- **Mobile**: Single column layout
+- **Tablet**: Two column grid
+- **Desktop**: Three column grid
+
+## Performance Optimizations
+
+- **Memoized Calculations**: Filtering and sorting using useMemo
+- **Efficient Pagination**: Only renders current page items
+- **Optimized Re-renders**: Redux selectors prevent unnecessary updates
+
+## Future Enhancements
+
+- **Search Functionality**: Text-based product search
+- **Category Management**: Product categorization
+- **Bulk Operations**: Select and modify multiple products
+- **Export/Import**: CSV data handling
+- **Advanced Analytics**: Inventory insights and reports
+- **User Authentication**: Multi-user support
+- **Real-time Sync**: Backend integration
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support and questions, please open an issue in the GitHub repository.
