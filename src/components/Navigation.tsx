@@ -5,14 +5,26 @@ import {
   Heading,
   Button,
   Badge,
+  HStack,
+  Text,
 } from '@chakra-ui/react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { logout } from '../store/slices/authSlice';
+import { LogOut, User } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.products);
+  const user = useAppSelector((state) => state.auth.user);
   const lowInventoryCount = products.filter(p => p.lowInventory).length;
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
 
   return (
     <Box
@@ -36,7 +48,7 @@ const Navigation = () => {
           📦 Inventory Manager
         </Heading>
         
-        <Flex gap={3}>
+        <HStack gap={4}>
           <Button
             asChild
             variant={location.pathname === '/' ? 'solid' : 'ghost'}
@@ -82,7 +94,27 @@ const Navigation = () => {
               )}
             </Link>
           </Button>
-        </Flex>
+          
+          <HStack gap={3} ml={4}>
+            <HStack gap={2} color="gray.600">
+              <User size={18} />
+              <Text fontSize="sm" fontWeight="medium">
+                {user?.name || 'User'}
+              </Text>
+            </HStack>
+            <Button
+              colorScheme="red"
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              borderRadius="xl"
+              leftIcon={<LogOut size={16} />}
+              _hover={{ transform: 'translateY(-1px)' }}
+            >
+              Logout
+            </Button>
+          </HStack>
+        </HStack>
       </Flex>
     </Box>
   );

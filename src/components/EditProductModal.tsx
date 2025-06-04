@@ -11,6 +11,8 @@ import {
   VStack,
   Box,
   Text,
+  HStack,
+  Switch,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
@@ -29,6 +31,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
     price: 0,
     quantity: 0,
     imageUrl: '',
+    lowInventory: false,
   });
 
   useEffect(() => {
@@ -38,6 +41,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
         price: product.price,
         quantity: product.quantity,
         imageUrl: product.imageUrl,
+        lowInventory: product.lowInventory,
       });
     }
   }, [product]);
@@ -63,7 +67,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
     }
 
     dispatch(updateProduct({
-      ...product,
+      id: product.id,
       ...formData,
       imageUrl: formData.imageUrl || 'https://via.placeholder.com/400x200?text=Product+Image',
     }));
@@ -83,14 +87,14 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
         maxW="lg"
       >
         <DialogHeader
-          bg="orange.50"
+          bg="blue.50"
           borderTopRadius="2xl"
           p={6}
         >
           <DialogTitle
             fontSize="2xl"
             fontWeight="bold"
-            color="orange.700"
+            color="blue.700"
           >
             ✏️ Edit Product
           </DialogTitle>
@@ -111,8 +115,8 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                   borderRadius="xl"
                   bg="gray.50"
                   borderColor="gray.300"
-                  _hover={{ borderColor: 'orange.400' }}
-                  _focus={{ borderColor: 'orange.500', shadow: 'outline' }}
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
                   fontWeight="medium"
                 />
               </Box>
@@ -124,60 +128,76 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                 <Input
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  placeholder="Enter image URL"
+                  placeholder="Enter image URL (optional)"
                   size="lg"
                   borderRadius="xl"
                   bg="gray.50"
                   borderColor="gray.300"
-                  _hover={{ borderColor: 'orange.400' }}
-                  _focus={{ borderColor: 'orange.500', shadow: 'outline' }}
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
                   fontWeight="medium"
                 />
               </Box>
 
-              <Box width="full">
-                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
-                  💰 Price (₹) *
-                </Text>
-                <Input
-                  type="number"
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) || 0 })}
-                  placeholder="Enter price"
-                  min={0}
-                  size="lg"
-                  borderRadius="xl"
-                  bg="gray.50"
-                  borderColor="gray.300"
-                  _hover={{ borderColor: 'orange.400' }}
-                  _focus={{ borderColor: 'orange.500', shadow: 'outline' }}
-                  fontWeight="medium"
-                />
-              </Box>
+              <HStack width="full" gap={4}>
+                <Box flex={1}>
+                  <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                    💰 Price (₹) *
+                  </Text>
+                  <Input
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) || 0 })}
+                    placeholder="Enter price"
+                    min={0}
+                    size="lg"
+                    borderRadius="xl"
+                    bg="gray.50"
+                    borderColor="gray.300"
+                    _hover={{ borderColor: 'blue.400' }}
+                    _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                    fontWeight="medium"
+                  />
+                </Box>
+
+                <Box flex={1}>
+                  <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                    📦 Quantity *
+                  </Text>
+                  <Input
+                    type="number"
+                    value={formData.quantity}
+                    onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) || 0 })}
+                    placeholder="Enter quantity"
+                    min={0}
+                    size="lg"
+                    borderRadius="xl"
+                    bg="gray.50"
+                    borderColor="gray.300"
+                    _hover={{ borderColor: 'blue.400' }}
+                    _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                    fontWeight="medium"
+                  />
+                </Box>
+              </HStack>
 
               <Box width="full">
-                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
-                  📦 Quantity *
-                </Text>
-                <Input
-                  type="number"
-                  value={formData.quantity}
-                  onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) || 0 })}
-                  placeholder="Enter quantity"
-                  min={0}
-                  size="lg"
-                  borderRadius="xl"
-                  bg="gray.50"
-                  borderColor="gray.300"
-                  _hover={{ borderColor: 'orange.400' }}
-                  _focus={{ borderColor: 'orange.500', shadow: 'outline' }}
-                  fontWeight="medium"
-                />
+                <HStack justify="space-between" align="center">
+                  <Text fontSize="sm" fontWeight="bold" color="gray.700">
+                    ⚠️ Low Inventory Flag
+                  </Text>
+                  <Switch
+                    isChecked={formData.lowInventory}
+                    onChange={(e) => setFormData({ ...formData, lowInventory: e.target.checked })}
+                    colorScheme="orange"
+                    size="lg"
+                  />
+                </HStack>
               </Box>
 
               <Button 
                 type="submit" 
-                colorScheme="orange" 
+                colorScheme="blue" 
                 width="full"
                 size="lg"
                 borderRadius="xl"
