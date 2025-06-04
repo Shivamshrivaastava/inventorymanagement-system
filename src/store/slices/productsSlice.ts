@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   quantity: number;
   lowInventory: boolean;
+  imageUrl: string;
 }
 
 interface ProductsState {
@@ -49,6 +50,9 @@ const productsSlice = createSlice({
         state.products[index] = action.payload;
       }
     },
+    deleteProduct: (state, action: PayloadAction<number>) => {
+      state.products = state.products.filter(p => p.id !== action.payload);
+    },
     toggleLowInventory: (state, action: PayloadAction<number>) => {
       const product = state.products.find(p => p.id === action.payload);
       if (product) {
@@ -83,6 +87,7 @@ const productsSlice = createSlice({
 export const {
   addProduct,
   updateProduct,
+  deleteProduct,
   toggleLowInventory,
   setCurrentPage,
   setProductsPerPage,

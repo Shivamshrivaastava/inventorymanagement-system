@@ -1,6 +1,6 @@
+
 import {
   DialogRoot,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogBody,
@@ -27,6 +27,7 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
     title: '',
     price: 0,
     quantity: 0,
+    imageUrl: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,11 +50,12 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
 
     dispatch(addProduct({
       ...formData,
+      imageUrl: formData.imageUrl || 'https://via.placeholder.com/400x200?text=Product+Image',
       lowInventory: false,
     }));
 
     alert('Product added successfully');
-    setFormData({ title: '', price: 0, quantity: 0 });
+    setFormData({ title: '', price: 0, quantity: 0, imageUrl: '' });
     onClose();
   };
 
@@ -65,6 +67,7 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
         bg="white"
         border="1px solid"
         borderColor="gray.200"
+        maxW="lg"
       >
         <DialogHeader
           bg="blue.50"
@@ -91,6 +94,24 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
+                />
+              </Box>
+
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  🖼️ Image URL
+                </Text>
+                <Input
+                  value={formData.imageUrl}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="Enter image URL (optional)"
                   size="lg"
                   borderRadius="xl"
                   bg="gray.50"

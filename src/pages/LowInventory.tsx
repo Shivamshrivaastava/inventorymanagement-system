@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { toggleLowInventory, Product } from '../store/slices/productsSlice';
+import { toggleLowInventory, deleteProduct, Product } from '../store/slices/productsSlice';
 import ProductCard from '../components/ProductCard';
 import EditProductModal from '../components/EditProductModal';
 
@@ -28,6 +28,10 @@ const LowInventory = () => {
 
   const handleToggleLowInventory = (id: number) => {
     dispatch(toggleLowInventory(id));
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteProduct(id));
   };
 
   return (
@@ -84,6 +88,7 @@ const LowInventory = () => {
                   product={product}
                   onEdit={handleEdit}
                   onToggleLowInventory={handleToggleLowInventory}
+                  onDelete={handleDelete}
                 />
               ))}
             </SimpleGrid>

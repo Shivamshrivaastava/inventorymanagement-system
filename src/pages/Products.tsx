@@ -1,3 +1,4 @@
+
 import {
   Container,
   VStack,
@@ -10,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { toggleLowInventory, setCurrentPage, Product } from '../store/slices/productsSlice';
+import { toggleLowInventory, setCurrentPage, deleteProduct, Product } from '../store/slices/productsSlice';
 import ProductCard from '../components/ProductCard';
 import AddProductModal from '../components/AddProductModal';
 import EditProductModal from '../components/EditProductModal';
@@ -71,6 +72,10 @@ const Products = () => {
 
   const handleToggleLowInventory = (id: number) => {
     dispatch(toggleLowInventory(id));
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteProduct(id));
   };
 
   const handlePageChange = (page: number) => {
@@ -137,6 +142,7 @@ const Products = () => {
                     product={product}
                     onEdit={handleEdit}
                     onToggleLowInventory={handleToggleLowInventory}
+                    onDelete={handleDelete}
                   />
                 ))}
               </SimpleGrid>

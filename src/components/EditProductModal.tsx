@@ -1,3 +1,4 @@
+
 import {
   DialogRoot,
   DialogContent,
@@ -27,6 +28,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
     title: '',
     price: 0,
     quantity: 0,
+    imageUrl: '',
   });
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
         title: product.title,
         price: product.price,
         quantity: product.quantity,
+        imageUrl: product.imageUrl,
       });
     }
   }, [product]);
@@ -62,6 +65,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
     dispatch(updateProduct({
       ...product,
       ...formData,
+      imageUrl: formData.imageUrl || 'https://via.placeholder.com/400x200?text=Product+Image',
     }));
 
     alert('Product updated successfully');
@@ -76,6 +80,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
         bg="white"
         border="1px solid"
         borderColor="gray.200"
+        maxW="lg"
       >
         <DialogHeader
           bg="orange.50"
@@ -102,6 +107,24 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'orange.400' }}
+                  _focus={{ borderColor: 'orange.500', shadow: 'outline' }}
+                  fontWeight="medium"
+                />
+              </Box>
+
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  🖼️ Image URL
+                </Text>
+                <Input
+                  value={formData.imageUrl}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="Enter image URL"
                   size="lg"
                   borderRadius="xl"
                   bg="gray.50"

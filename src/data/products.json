@@ -5,209 +5,239 @@
     "title": "Product A - Wireless Mouse",
     "price": 499,
     "quantity": 120,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop"
   },
   {
     "id": 2,
     "title": "Product B - Bluetooth Speaker",
     "price": 1499,
     "quantity": 75,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=300&fit=crop"
   },
   {
     "id": 3,
     "title": "Product C - USB-C Hub",
     "price": 799,
     "quantity": 55,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400&h=300&fit=crop"
   },
   {
     "id": 4,
     "title": "Product D - Gaming Keyboard",
     "price": 2599,
     "quantity": 32,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&h=300&fit=crop"
   },
   {
     "id": 5,
     "title": "Product E - Webcam HD",
     "price": 1299,
     "quantity": 64,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop"
   },
   {
     "id": 6,
     "title": "Product F - Portable SSD 1TB",
     "price": 5499,
     "quantity": 41,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop"
   },
   {
     "id": 7,
     "title": "Product G - Laptop Stand",
     "price": 999,
     "quantity": 88,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop"
   },
   {
     "id": 8,
     "title": "Product H - Noise Cancelling Headphones",
     "price": 3499,
     "quantity": 23,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop"
   },
   {
     "id": 9,
     "title": "Product I - Smartwatch",
     "price": 6999,
     "quantity": 37,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
   },
   {
     "id": 10,
     "title": "Product J - Fitness Tracker",
     "price": 2999,
     "quantity": 29,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=300&fit=crop"
   },
   {
     "id": 11,
     "title": "Product K - Phone Tripod",
     "price": 499,
     "quantity": 102,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop"
   },
   {
     "id": 12,
     "title": "Product L - Ring Light",
     "price": 899,
     "quantity": 56,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1591068344482-aec95bbaec3a?w=400&h=300&fit=crop"
   },
   {
     "id": 13,
     "title": "Product M - External Hard Drive 2TB",
     "price": 4299,
     "quantity": 33,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop"
   },
   {
     "id": 14,
     "title": "Product N - Microphone - Studio",
     "price": 2199,
     "quantity": 48,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=300&fit=crop"
   },
   {
     "id": 15,
     "title": "Product O - Wireless Charger",
     "price": 699,
     "quantity": 91,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop"
   },
   {
     "id": 16,
     "title": "Product P - Monitor 24inch",
     "price": 8499,
     "quantity": 22,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=300&fit=crop"
   },
   {
     "id": 17,
     "title": "Product Q - Graphics Tablet",
     "price": 3799,
     "quantity": 19,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop"
   },
   {
     "id": 18,
     "title": "Product R - Action Camera",
     "price": 9999,
     "quantity": 14,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop"
   },
   {
     "id": 19,
     "title": "Product S - Smart Bulb",
     "price": 399,
     "quantity": 78,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
   },
   {
     "id": 20,
     "title": "Product T - Mini Projector",
     "price": 5499,
     "quantity": 12,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400&h=300&fit=crop"
   },
   {
     "id": 21,
     "title": "Product U - Wi-Fi Range Extender",
     "price": 1399,
     "quantity": 40,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1606479629776-13b2f76e838c?w=400&h=300&fit=crop"
   },
   {
     "id": 22,
     "title": "Product V - Laptop Cooling Pad",
     "price": 599,
     "quantity": 84,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=300&fit=crop"
   },
   {
     "id": 23,
     "title": "Product W - Mechanical Pencil",
     "price": 199,
     "quantity": 200,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1586952518485-11b180e92764?w=400&h=300&fit=crop"
   },
   {
     "id": 24,
     "title": "Product X - Portable Monitor",
     "price": 7999,
     "quantity": 9,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=300&fit=crop"
   },
   {
     "id": 25,
     "title": "Product Y - HDMI Cable",
     "price": 299,
     "quantity": 176,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
   },
   {
     "id": 26,
     "title": "Product Z - Bluetooth Earbuds",
     "price": 1599,
     "quantity": 68,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop"
   },
   {
     "id": 27,
     "title": "Product A - VR Headset",
     "price": 19999,
     "quantity": 6,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400&h=300&fit=crop"
   },
   {
     "id": 28,
     "title": "Product B - Keyboard Cleaning Kit",
     "price": 349,
     "quantity": 128,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&h=300&fit=crop"
   },
   {
     "id": 29,
     "title": "Product C - Stylus Pen",
     "price": 499,
     "quantity": 94,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop"
   },
   {
     "id": 30,
     "title": "Product D - Foldable Laptop Table",
     "price": 1199,
     "quantity": 39,
-    "lowInventory": false
+    "lowInventory": false,
+    "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop"
   }
 ]
