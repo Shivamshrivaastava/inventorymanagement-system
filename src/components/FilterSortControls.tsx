@@ -4,7 +4,6 @@ import {
   HStack,
   VStack,
   Text,
-  Field,
   Input,
   NativeSelectRoot,
   NativeSelectField,
@@ -45,7 +44,8 @@ const FilterSortControls = () => {
         </Text>
         
         <HStack gap={4} wrap="wrap">
-          <Field label="Sort By" minW="150px">
+          <Box minW="150px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Sort By</Text>
             <NativeSelectRoot>
               <NativeSelectField
                 value={sortBy}
@@ -56,9 +56,10 @@ const FilterSortControls = () => {
                 <option value="quantity">Quantity</option>
               </NativeSelectField>
             </NativeSelectRoot>
-          </Field>
+          </Box>
 
-          <Field label="Order" minW="120px">
+          <Box minW="120px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Order</Text>
             <NativeSelectRoot>
               <NativeSelectField
                 value={sortOrder}
@@ -68,9 +69,10 @@ const FilterSortControls = () => {
                 <option value="desc">Descending</option>
               </NativeSelectField>
             </NativeSelectRoot>
-          </Field>
+          </Box>
 
-          <Field label="Per Page" minW="120px">
+          <Box minW="120px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Per Page</Text>
             <NativeSelectRoot>
               <NativeSelectField
                 value={productsPerPage}
@@ -82,38 +84,41 @@ const FilterSortControls = () => {
                 <option value={20}>20</option>
               </NativeSelectField>
             </NativeSelectRoot>
-          </Field>
+          </Box>
         </HStack>
 
         <Separator />
 
         <HStack gap={4} wrap="wrap">
-          <Field label="Min Price (₹)" minW="150px">
+          <Box minW="150px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Min Price (₹)</Text>
             <Input
               type="number"
               value={filterMinPrice}
               onChange={(e) => dispatch(setFilterMinPrice(Number(e.target.value) || 0))}
               min={0}
             />
-          </Field>
+          </Box>
 
-          <Field label="Max Price (₹)" minW="150px">
+          <Box minW="150px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Max Price (₹)</Text>
             <Input
               type="number"
               value={filterMaxPrice}
               onChange={(e) => dispatch(setFilterMaxPrice(Number(e.target.value) || 25000))}
               min={0}
             />
-          </Field>
+          </Box>
 
-          <Field label="Min Quantity" minW="150px">
+          <Box minW="150px">
+            <Text fontSize="sm" fontWeight="medium" mb={2}>Min Quantity</Text>
             <Input
               type="number"
               value={filterMinQuantity}
               onChange={(e) => dispatch(setFilterMinQuantity(Number(e.target.value) || 0))}
               min={0}
             />
-          </Field>
+          </Box>
         </HStack>
       </VStack>
     </Box>

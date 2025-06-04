@@ -7,9 +7,10 @@ import {
   DialogCloseTrigger,
   DialogTitle,
   Button,
-  Field,
   Input,
   VStack,
+  Box,
+  Text,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
@@ -78,15 +79,17 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
         <DialogBody pb={6}>
           <form onSubmit={handleSubmit}>
             <VStack gap={4}>
-              <Field label="Product Title" required>
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="medium" mb={2}>Product Title *</Text>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
                 />
-              </Field>
+              </Box>
 
-              <Field label="Price (₹)" required>
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="medium" mb={2}>Price (₹) *</Text>
                 <Input
                   type="number"
                   value={formData.price}
@@ -94,9 +97,10 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                   placeholder="Enter price"
                   min={0}
                 />
-              </Field>
+              </Box>
 
-              <Field label="Quantity" required>
+              <Box width="full">
+                <Text fontSize="sm" fontWeight="medium" mb={2}>Quantity *</Text>
                 <Input
                   type="number"
                   value={formData.quantity}
@@ -104,7 +108,7 @@ const EditProductModal = ({ isOpen, onClose, product }: EditProductModalProps) =
                   placeholder="Enter quantity"
                   min={0}
                 />
-              </Field>
+              </Box>
 
               <Button type="submit" colorScheme="blue" width="full">
                 Update Product
