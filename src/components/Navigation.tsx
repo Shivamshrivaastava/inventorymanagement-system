@@ -19,20 +19,33 @@ const Navigation = () => {
       bg="white"
       borderBottomWidth="1px"
       borderColor="gray.200"
-      px={4}
-      py={3}
-      shadow="sm"
+      px={6}
+      py={4}
+      shadow="lg"
+      position="sticky"
+      top={0}
+      zIndex={10}
     >
       <Flex justify="space-between" align="center" maxW="container.xl" mx="auto">
-        <Heading size="lg" color="blue.500">
-          Inventory Manager
+        <Heading 
+          size="xl" 
+          bgGradient="linear(to-r, blue.500, purple.600)"
+          bgClip="text"
+          fontWeight="extrabold"
+        >
+          📦 Inventory Manager
         </Heading>
         
-        <Flex gap={2}>
+        <Flex gap={3}>
           <Button
             asChild
             variant={location.pathname === '/' ? 'solid' : 'ghost'}
             colorScheme="blue"
+            size="lg"
+            borderRadius="xl"
+            fontWeight="semibold"
+            _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+            transition="all 0.2s"
           >
             <Link to="/">All Products</Link>
           </Button>
@@ -40,10 +53,15 @@ const Navigation = () => {
             asChild
             variant={location.pathname === '/low-inventory' ? 'solid' : 'ghost'}
             colorScheme="orange"
+            size="lg"
+            borderRadius="xl"
+            fontWeight="semibold"
             position="relative"
+            _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+            transition="all 0.2s"
           >
             <Link to="/low-inventory">
-              Low Inventory
+              ⚠️ Low Inventory
               {lowInventoryCount > 0 && (
                 <Badge
                   colorScheme="red"
@@ -53,6 +71,11 @@ const Navigation = () => {
                   top="-1"
                   right="-1"
                   fontSize="xs"
+                  minW="6"
+                  h="6"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
                   {lowInventoryCount}
                 </Badge>

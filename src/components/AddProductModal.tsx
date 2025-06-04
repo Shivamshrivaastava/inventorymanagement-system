@@ -1,4 +1,3 @@
-
 import {
   DialogRoot,
   DialogTrigger,
@@ -60,47 +59,100 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
 
   return (
     <DialogRoot open={isOpen} onOpenChange={(e) => !e.open && onClose()}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add New Product</DialogTitle>
+      <DialogContent
+        borderRadius="2xl"
+        shadow="2xl"
+        bg="white"
+        border="1px solid"
+        borderColor="gray.200"
+      >
+        <DialogHeader
+          bg="blue.50"
+          borderTopRadius="2xl"
+          p={6}
+        >
+          <DialogTitle
+            fontSize="2xl"
+            fontWeight="bold"
+            color="blue.700"
+          >
+            ➕ Add New Product
+          </DialogTitle>
           <DialogCloseTrigger />
         </DialogHeader>
-        <DialogBody pb={6}>
+        <DialogBody pb={6} px={6}>
           <form onSubmit={handleSubmit}>
-            <VStack gap={4}>
+            <VStack gap={6}>
               <Box width="full">
-                <Text fontSize="sm" fontWeight="medium" mb={2}>Product Title *</Text>
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  📝 Product Title *
+                </Text>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
                 />
               </Box>
 
               <Box width="full">
-                <Text fontSize="sm" fontWeight="medium" mb={2}>Price (₹) *</Text>
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  💰 Price (₹) *
+                </Text>
                 <Input
                   type="number"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) || 0 })}
                   placeholder="Enter price"
                   min={0}
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
                 />
               </Box>
 
               <Box width="full">
-                <Text fontSize="sm" fontWeight="medium" mb={2}>Quantity *</Text>
+                <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.700">
+                  📦 Quantity *
+                </Text>
                 <Input
                   type="number"
                   value={formData.quantity}
                   onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) || 0 })}
                   placeholder="Enter quantity"
                   min={0}
+                  size="lg"
+                  borderRadius="xl"
+                  bg="gray.50"
+                  borderColor="gray.300"
+                  _hover={{ borderColor: 'blue.400' }}
+                  _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+                  fontWeight="medium"
                 />
               </Box>
 
-              <Button type="submit" colorScheme="blue" width="full">
-                Add Product
+              <Button 
+                type="submit" 
+                colorScheme="blue" 
+                width="full"
+                size="lg"
+                borderRadius="xl"
+                fontWeight="bold"
+                shadow="lg"
+                _hover={{ transform: 'translateY(-2px)', shadow: 'xl' }}
+                transition="all 0.2s"
+              >
+                ✨ Add Product
               </Button>
             </VStack>
           </form>

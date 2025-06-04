@@ -1,4 +1,3 @@
-
 import {
   Container,
   VStack,
@@ -79,82 +78,135 @@ const Products = () => {
   };
 
   return (
-    <Container maxW="container.xl" py={6}>
-      <VStack gap={6} align="stretch">
-        <Flex justify="space-between" align="center" wrap="wrap" gap={4}>
-          <Text fontSize="2xl" fontWeight="bold">
-            Products ({filteredAndSortedProducts.length})
-          </Text>
-          <Button colorScheme="green" onClick={() => setIsAddOpen(true)}>
-            Add Product
-          </Button>
-        </Flex>
+    <Box bg="gray.50" minH="100vh">
+      <Container maxW="container.xl" py={8}>
+        <VStack gap={8} align="stretch">
+          <Flex justify="space-between" align="center" wrap="wrap" gap={4}>
+            <Box>
+              <Text 
+                fontSize="4xl" 
+                fontWeight="extrabold"
+                bgGradient="linear(to-r, blue.600, purple.600)"
+                bgClip="text"
+                mb={2}
+              >
+                📦 Product Inventory
+              </Text>
+              <Text fontSize="lg" color="gray.600" fontWeight="medium">
+                Managing {filteredAndSortedProducts.length} products
+              </Text>
+            </Box>
+            <Button 
+              colorScheme="green" 
+              size="lg"
+              onClick={() => setIsAddOpen(true)}
+              borderRadius="xl"
+              fontWeight="bold"
+              shadow="lg"
+              _hover={{ transform: 'translateY(-2px)', shadow: 'xl' }}
+              transition="all 0.2s"
+            >
+              ➕ Add Product
+            </Button>
+          </Flex>
 
-        <FilterSortControls />
+          <FilterSortControls />
 
-        {currentProducts.length === 0 ? (
-          <Box textAlign="center" py={10}>
-            <Text fontSize="lg" color="gray.500">
-              No products found matching your criteria.
-            </Text>
-          </Box>
-        ) : (
-          <>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
-              {currentProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onEdit={handleEdit}
-                  onToggleLowInventory={handleToggleLowInventory}
-                />
-              ))}
-            </SimpleGrid>
+          {currentProducts.length === 0 ? (
+            <Box 
+              textAlign="center" 
+              py={20}
+              bg="white"
+              borderRadius="2xl"
+              shadow="lg"
+            >
+              <Text fontSize="6xl" mb={4}>📭</Text>
+              <Text fontSize="xl" color="gray.500" fontWeight="medium">
+                No products found matching your criteria.
+              </Text>
+              <Text color="gray.400" mt={2}>
+                Try adjusting your filters or add some products.
+              </Text>
+            </Box>
+          ) : (
+            <>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
+                {currentProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onEdit={handleEdit}
+                    onToggleLowInventory={handleToggleLowInventory}
+                  />
+                ))}
+              </SimpleGrid>
 
-            {totalPages > 1 && (
-              <Flex justify="center" align="center" gap={4} wrap="wrap">
-                <Button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  variant="outline"
+              {totalPages > 1 && (
+                <Flex 
+                  justify="center" 
+                  align="center" 
+                  gap={4} 
+                  wrap="wrap"
+                  bg="white"
+                  p={6}
+                  borderRadius="2xl"
+                  shadow="lg"
                 >
-                  Previous
-                </Button>
-                
-                <HStack>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <Button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      variant={currentPage === page ? "solid" : "outline"}
-                      colorScheme="blue"
-                      size="sm"
-                    >
-                      {page}
-                    </Button>
-                  ))}
-                </HStack>
-                
-                <Button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  variant="outline"
-                >
-                  Next
-                </Button>
-              </Flex>
-            )}
-          </>
-        )}
-      </VStack>
+                  <Button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    variant="outline"
+                    size="lg"
+                    borderRadius="xl"
+                    fontWeight="semibold"
+                    _hover={{ transform: 'translateY(-1px)' }}
+                  >
+                    ← Previous
+                  </Button>
+                  
+                  <HStack>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <Button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        variant={currentPage === page ? "solid" : "outline"}
+                        colorScheme="blue"
+                        size="md"
+                        borderRadius="xl"
+                        minW="12"
+                        fontWeight="bold"
+                        _hover={{ transform: 'translateY(-1px)' }}
+                      >
+                        {page}
+                      </Button>
+                    ))}
+                  </HStack>
+                  
+                  <Button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    variant="outline"
+                    size="lg"
+                    borderRadius="xl"
+                    fontWeight="semibold"
+                    _hover={{ transform: 'translateY(-1px)' }}
+                  >
+                    Next →
+                  </Button>
+                </Flex>
+              )}
+            </>
+          )}
+        </VStack>
 
-      <AddProductModal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
-      <EditProductModal
-        isOpen={isEditOpen}
-        onClose={() => setIsEditOpen(false)}
-        product={editingProduct}
-      />
-    </Container>
+        <AddProductModal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
+        <EditProductModal
+          isOpen={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          product={editingProduct}
+        />
+      </Container>
+    </Box>
   );
 };
 

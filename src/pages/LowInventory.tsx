@@ -31,46 +31,72 @@ const LowInventory = () => {
   };
 
   return (
-    <Container maxW="container.xl" py={6}>
-      <VStack gap={6} align="stretch">
-        <Box>
-          <Text fontSize="2xl" fontWeight="bold" mb={2}>
-            Low Inventory Products
-          </Text>
-          <Badge colorScheme="orange" fontSize="md" px={3} py={1} borderRadius="full">
-            {lowInventoryProducts.length} items need attention
-          </Badge>
-        </Box>
-
-        {lowInventoryProducts.length === 0 ? (
-          <Box textAlign="center" py={10}>
-            <Text fontSize="lg" color="gray.500">
-              No products marked as low inventory.
+    <Box bg="gray.50" minH="100vh">
+      <Container maxW="container.xl" py={8}>
+        <VStack gap={8} align="stretch">
+          <Box>
+            <Text 
+              fontSize="4xl" 
+              fontWeight="extrabold"
+              bgGradient="linear(to-r, orange.500, red.500)"
+              bgClip="text"
+              mb={4}
+            >
+              ⚠️ Low Inventory Alert
             </Text>
-            <Text color="gray.400" mt={2}>
-              Products marked as needing replenishment will appear here.
-            </Text>
+            <Badge 
+              colorScheme="orange" 
+              fontSize="lg" 
+              px={6} 
+              py={3} 
+              borderRadius="full"
+              fontWeight="bold"
+              shadow="lg"
+            >
+              🚨 {lowInventoryProducts.length} items need immediate attention
+            </Badge>
           </Box>
-        ) : (
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
-            {lowInventoryProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onEdit={handleEdit}
-                onToggleLowInventory={handleToggleLowInventory}
-              />
-            ))}
-          </SimpleGrid>
-        )}
-      </VStack>
 
-      <EditProductModal
-        isOpen={isEditOpen}
-        onClose={() => setIsEditOpen(false)}
-        product={editingProduct}
-      />
-    </Container>
+          {lowInventoryProducts.length === 0 ? (
+            <Box 
+              textAlign="center" 
+              py={20}
+              bg="white"
+              borderRadius="2xl"
+              shadow="xl"
+            >
+              <Text fontSize="6xl" mb={6}>✅</Text>
+              <Text fontSize="2xl" fontWeight="bold" color="green.600" mb={4}>
+                All Good! No Low Inventory Items
+              </Text>
+              <Text fontSize="lg" color="gray.500" mb={2}>
+                No products marked as low inventory.
+              </Text>
+              <Text color="gray.400">
+                Products that need replenishment will appear here when marked.
+              </Text>
+            </Box>
+          ) : (
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
+              {lowInventoryProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onEdit={handleEdit}
+                  onToggleLowInventory={handleToggleLowInventory}
+                />
+              ))}
+            </SimpleGrid>
+          )}
+        </VStack>
+
+        <EditProductModal
+          isOpen={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          product={editingProduct}
+        />
+      </Container>
+    </Box>
   );
 };
 
