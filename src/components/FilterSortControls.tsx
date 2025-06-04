@@ -4,16 +4,11 @@ import {
   HStack,
   VStack,
   Text,
-  Select,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  FormControl,
-  FormLabel,
-  useColorModeValue,
-  Divider,
+  Field,
+  Input,
+  NativeSelectRoot,
+  NativeSelectField,
+  Separator,
 } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
@@ -36,113 +31,89 @@ const FilterSortControls = () => {
     productsPerPage,
   } = useAppSelector((state) => state.products);
 
-  const bgColor = useColorModeValue('gray.50', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
-
   return (
     <Box
       p={4}
-      bg={bgColor}
+      bg="gray.50"
       borderWidth="1px"
-      borderColor={borderColor}
+      borderColor="gray.200"
       borderRadius="md"
     >
-      <VStack spacing={4} align="stretch">
+      <VStack gap={4} align="stretch">
         <Text fontSize="lg" fontWeight="semibold">
           Filter & Sort Options
         </Text>
         
-        <HStack spacing={4} wrap="wrap">
-          <FormControl minW="150px">
-            <FormLabel fontSize="sm">Sort By</FormLabel>
-            <Select
-              value={sortBy}
-              onChange={(e) => dispatch(setSortBy(e.target.value as 'title' | 'price' | 'quantity'))}
-              size="sm"
-            >
-              <option value="title">Title</option>
-              <option value="price">Price</option>
-              <option value="quantity">Quantity</option>
-            </Select>
-          </FormControl>
+        <HStack gap={4} wrap="wrap">
+          <Field label="Sort By" minW="150px">
+            <NativeSelectRoot>
+              <NativeSelectField
+                value={sortBy}
+                onChange={(e) => dispatch(setSortBy(e.target.value as 'title' | 'price' | 'quantity'))}
+              >
+                <option value="title">Title</option>
+                <option value="price">Price</option>
+                <option value="quantity">Quantity</option>
+              </NativeSelectField>
+            </NativeSelectRoot>
+          </Field>
 
-          <FormControl minW="120px">
-            <FormLabel fontSize="sm">Order</FormLabel>
-            <Select
-              value={sortOrder}
-              onChange={(e) => dispatch(setSortOrder(e.target.value as 'asc' | 'desc'))}
-              size="sm"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </Select>
-          </FormControl>
+          <Field label="Order" minW="120px">
+            <NativeSelectRoot>
+              <NativeSelectField
+                value={sortOrder}
+                onChange={(e) => dispatch(setSortOrder(e.target.value as 'asc' | 'desc'))}
+              >
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </NativeSelectField>
+            </NativeSelectRoot>
+          </Field>
 
-          <FormControl minW="120px">
-            <FormLabel fontSize="sm">Per Page</FormLabel>
-            <Select
-              value={productsPerPage}
-              onChange={(e) => dispatch(setProductsPerPage(Number(e.target.value)))}
-              size="sm"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={15}>15</option>
-              <option value={20}>20</option>
-            </Select>
-          </FormControl>
+          <Field label="Per Page" minW="120px">
+            <NativeSelectRoot>
+              <NativeSelectField
+                value={productsPerPage}
+                onChange={(e) => dispatch(setProductsPerPage(Number(e.target.value)))}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+              </NativeSelectField>
+            </NativeSelectRoot>
+          </Field>
         </HStack>
 
-        <Divider />
+        <Separator />
 
-        <HStack spacing={4} wrap="wrap">
-          <FormControl minW="150px">
-            <FormLabel fontSize="sm">Min Price (₹)</FormLabel>
-            <NumberInput
+        <HStack gap={4} wrap="wrap">
+          <Field label="Min Price (₹)" minW="150px">
+            <Input
+              type="number"
               value={filterMinPrice}
-              onChange={(_, value) => dispatch(setFilterMinPrice(value || 0))}
+              onChange={(e) => dispatch(setFilterMinPrice(Number(e.target.value) || 0))}
               min={0}
-              size="sm"
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
+            />
+          </Field>
 
-          <FormControl minW="150px">
-            <FormLabel fontSize="sm">Max Price (₹)</FormLabel>
-            <NumberInput
+          <Field label="Max Price (₹)" minW="150px">
+            <Input
+              type="number"
               value={filterMaxPrice}
-              onChange={(_, value) => dispatch(setFilterMaxPrice(value || 25000))}
+              onChange={(e) => dispatch(setFilterMaxPrice(Number(e.target.value) || 25000))}
               min={0}
-              size="sm"
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
+            />
+          </Field>
 
-          <FormControl minW="150px">
-            <FormLabel fontSize="sm">Min Quantity</FormLabel>
-            <NumberInput
+          <Field label="Min Quantity" minW="150px">
+            <Input
+              type="number"
               value={filterMinQuantity}
-              onChange={(_, value) => dispatch(setFilterMinQuantity(value || 0))}
+              onChange={(e) => dispatch(setFilterMinQuantity(Number(e.target.value) || 0))}
               min={0}
-              size="sm"
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
+            />
+          </Field>
         </HStack>
       </VStack>
     </Box>

@@ -5,23 +5,20 @@ import {
   Heading,
   Button,
   Badge,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../store/hooks';
 
 const Navigation = () => {
   const location = useLocation();
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
   const products = useAppSelector((state) => state.products.products);
   const lowInventoryCount = products.filter(p => p.lowInventory).length;
 
   return (
     <Box
-      bg={bgColor}
+      bg="white"
       borderBottomWidth="1px"
-      borderColor={borderColor}
+      borderColor="gray.200"
       px={4}
       py={3}
       shadow="sm"
@@ -33,34 +30,34 @@ const Navigation = () => {
         
         <Flex gap={2}>
           <Button
-            as={Link}
-            to="/"
+            asChild
             variant={location.pathname === '/' ? 'solid' : 'ghost'}
             colorScheme="blue"
           >
-            All Products
+            <Link to="/">All Products</Link>
           </Button>
           <Button
-            as={Link}
-            to="/low-inventory"
+            asChild
             variant={location.pathname === '/low-inventory' ? 'solid' : 'ghost'}
             colorScheme="orange"
             position="relative"
           >
-            Low Inventory
-            {lowInventoryCount > 0 && (
-              <Badge
-                colorScheme="red"
-                variant="solid"
-                borderRadius="full"
-                position="absolute"
-                top="-1"
-                right="-1"
-                fontSize="xs"
-              >
-                {lowInventoryCount}
-              </Badge>
-            )}
+            <Link to="/low-inventory">
+              Low Inventory
+              {lowInventoryCount > 0 && (
+                <Badge
+                  colorScheme="red"
+                  variant="solid"
+                  borderRadius="full"
+                  position="absolute"
+                  top="-1"
+                  right="-1"
+                  fontSize="xs"
+                >
+                  {lowInventoryCount}
+                </Badge>
+              )}
+            </Link>
           </Button>
         </Flex>
       </Flex>

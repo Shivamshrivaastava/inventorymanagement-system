@@ -4,12 +4,10 @@ import {
   Text,
   Button,
   Card,
-  CardBody,
   Stack,
   Heading,
   Badge,
   Flex,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { Product } from '../store/slices/productsSlice';
 
@@ -20,22 +18,19 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onEdit, onToggleLowInventory }: ProductCardProps) => {
-  const cardBg = useColorModeValue('white', 'gray.700');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
-
   return (
-    <Card
-      bg={cardBg}
+    <Card.Root
+      bg="white"
       borderWidth="1px"
-      borderColor={borderColor}
+      borderColor="gray.200"
       shadow="md"
       _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
       transition="all 0.2s"
     >
-      <CardBody>
-        <Stack spacing={3}>
+      <Card.Body>
+        <Stack gap={3}>
           <Flex justify="space-between" align="flex-start">
-            <Heading size="md" noOfLines={2}>
+            <Heading size="md" lineClamp={2}>
               {product.title}
             </Heading>
             {product.lowInventory && (
@@ -73,8 +68,8 @@ const ProductCard = ({ product, onEdit, onToggleLowInventory }: ProductCardProps
             </Button>
           </Flex>
         </Stack>
-      </CardBody>
-    </Card>
+      </Card.Body>
+    </Card.Root>
   );
 };
 

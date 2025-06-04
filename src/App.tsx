@@ -1,5 +1,5 @@
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { store } from './store/store';
@@ -10,7 +10,7 @@ import NotFound from './pages/NotFound';
 
 const App = () => (
   <Provider store={store}>
-    <ChakraProvider>
+    <ChakraProvider value={defaultSystem}>
       <BrowserRouter>
         <Navigation />
         <Routes>

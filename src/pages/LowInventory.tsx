@@ -6,7 +6,6 @@ import {
   SimpleGrid,
   Box,
   Badge,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -18,13 +17,13 @@ const LowInventory = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.products);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const lowInventoryProducts = products.filter(product => product.lowInventory);
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
-    onEditOpen();
+    setIsEditOpen(true);
   };
 
   const handleToggleLowInventory = (id: number) => {
@@ -33,7 +32,7 @@ const LowInventory = () => {
 
   return (
     <Container maxW="container.xl" py={6}>
-      <VStack spacing={6} align="stretch">
+      <VStack gap={6} align="stretch">
         <Box>
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
             Low Inventory Products
@@ -53,7 +52,7 @@ const LowInventory = () => {
             </Text>
           </Box>
         ) : (
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
             {lowInventoryProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -68,7 +67,7 @@ const LowInventory = () => {
 
       <EditProductModal
         isOpen={isEditOpen}
-        onClose={onEditClose}
+        onClose={() => setIsEditOpen(false)}
         product={editingProduct}
       />
     </Container>

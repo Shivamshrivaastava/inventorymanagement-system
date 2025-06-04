@@ -7,8 +7,6 @@ import {
   SimpleGrid,
   Text,
   Flex,
-  useDisclosure,
-  Select,
   Box,
 } from '@chakra-ui/react';
 import { useState, useMemo } from 'react';
@@ -33,8 +31,8 @@ const Products = () => {
   } = useAppSelector((state) => state.products);
 
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const { isOpen: isAddOpen, onOpen: onAddOpen, onClose: onAddClose } = useDisclosure();
-  const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products.filter(product => 
@@ -69,7 +67,7 @@ const Products = () => {
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
-    onEditOpen();
+    setIsEditOpen(true);
   };
 
   const handleToggleLowInventory = (id: number) => {
@@ -82,12 +80,12 @@ const Products = () => {
 
   return (
     <Container maxW="container.xl" py={6}>
-      <VStack spacing={6} align="stretch">
+      <VStack gap={6} align="stretch">
         <Flex justify="space-between" align="center" wrap="wrap" gap={4}>
           <Text fontSize="2xl" fontWeight="bold">
             Products ({filteredAndSortedProducts.length})
           </Text>
-          <Button colorScheme="green" onClick={onAddOpen}>
+          <Button colorScheme="green" onClick={() => setIsAddOpen(true)}>
             Add Product
           </Button>
         </Flex>
@@ -102,7 +100,7 @@ const Products = () => {
           </Box>
         ) : (
           <>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
               {currentProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -117,7 +115,7 @@ const Products = () => {
               <Flex justify="center" align="center" gap={4} wrap="wrap">
                 <Button
                   onClick={() => handlePageChange(currentPage - 1)}
-                  isDisabled={currentPage === 1}
+                  disabled={currentPage === 1}
                   variant="outline"
                 >
                   Previous
@@ -139,7 +137,7 @@ const Products = () => {
                 
                 <Button
                   onClick={() => handlePageChange(currentPage + 1)}
-                  isDisabled={currentPage === totalPages}
+                  disabled={currentPage === totalPages}
                   variant="outline"
                 >
                   Next
@@ -150,10 +148,10 @@ const Products = () => {
         )}
       </VStack>
 
-      <AddProductModal isOpen={isAddOpen} onClose={onAddClose} />
+      <AddProductModal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
       <EditProductModal
         isOpen={isEditOpen}
-        onClose={onEditClose}
+        onClose={() => setIsEditOpen(false)}
         product={editingProduct}
       />
     </Container>

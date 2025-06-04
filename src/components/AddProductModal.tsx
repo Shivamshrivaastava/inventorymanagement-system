@@ -1,22 +1,16 @@
 
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogTitle,
   Button,
-  FormControl,
-  FormLabel,
+  Field,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   VStack,
-  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useAppDispatch } from '../store/hooks';
@@ -29,7 +23,6 @@ interface AddProductModalProps {
 
 const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
   const dispatch = useAppDispatch();
-  const toast = useToast();
   const [formData, setFormData] = useState({
     title: '',
     price: 0,
@@ -40,35 +33,17 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
     e.preventDefault();
     
     if (!formData.title.trim()) {
-      toast({
-        title: 'Error',
-        description: 'Product title is required',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      alert('Product title is required');
       return;
     }
 
     if (formData.price <= 0) {
-      toast({
-        title: 'Error',
-        description: 'Price must be greater than 0',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      alert('Price must be greater than 0');
       return;
     }
 
     if (formData.quantity < 0) {
-      toast({
-        title: 'Error',
-        description: 'Quantity cannot be negative',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      alert('Quantity cannot be negative');
       return;
     }
 
@@ -77,78 +52,57 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
       lowInventory: false,
     }));
 
-    toast({
-      title: 'Success',
-      description: 'Product added successfully',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-
+    alert('Product added successfully');
     setFormData({ title: '', price: 0, quantity: 0 });
     onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="md">
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Add New Product</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
+    <DialogRoot open={isOpen} onOpenChange={(e) => !e.open && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add New Product</DialogTitle>
+          <DialogCloseTrigger />
+        </DialogHeader>
+        <DialogBody pb={6}>
           <form onSubmit={handleSubmit}>
-            <VStack spacing={4}>
-              <FormControl isRequired>
-                <FormLabel>Product Title</FormLabel>
+            <VStack gap={4}>
+              <Field label="Product Title" required>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter product title"
                 />
-              </FormControl>
+              </Field>
 
-              <FormControl isRequired>
-                <FormLabel>Price (₹)</FormLabel>
-                <NumberInput
+              <Field label="Price (₹)" required>
+                <Input
+                  type="number"
                   value={formData.price}
-                  onChange={(_, valueAsNumber) => 
-                    setFormData({ ...formData, price: valueAsNumber || 0 })
-                  }
+                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) || 0 })}
+                  placeholder="Enter price"
                   min={0}
-                >
-                  <NumberInputField placeholder="Enter price" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
+                />
+              </Field>
 
-              <FormControl isRequired>
-                <FormLabel>Quantity</FormLabel>
-                <NumberInput
+              <Field label="Quantity" required>
+                <Input
+                  type="number"
                   value={formData.quantity}
-                  onChange={(_, valueAsNumber) => 
-                    setFormData({ ...formData, quantity: valueAsNumber || 0 })
-                  }
+                  onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) || 0 })}
+                  placeholder="Enter quantity"
                   min={0}
-                >
-                  <NumberInputField placeholder="Enter quantity" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
+                />
+              </Field>
 
               <Button type="submit" colorScheme="blue" width="full">
                 Add Product
               </Button>
             </VStack>
           </form>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 
