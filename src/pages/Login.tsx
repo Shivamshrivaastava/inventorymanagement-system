@@ -9,18 +9,13 @@ import {
   Button,
   Card,
   Image,
-  FormControl,
-  FormLabel,
-  InputGroup,
-  InputLeftElement,
-  Link,
-  Divider,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { login } from '../store/slices/authSlice';
 import { LogIn, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Separator } from '../components/ui/separator';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -107,19 +102,26 @@ const Login = () => {
           <Card.Body p={8}>
             <form onSubmit={handleSubmit}>
               <VStack gap={6}>
-                <FormControl>
-                  <FormLabel 
+                <Box width="full">
+                  <Text 
                     fontSize="sm" 
                     fontWeight="bold" 
                     color="gray.700"
                     mb={3}
                   >
                     📧 Email Address
-                  </FormLabel>
-                  <InputGroup>
-                    <InputLeftElement color="gray.400">
+                  </Text>
+                  <Box position="relative">
+                    <Box
+                      position="absolute"
+                      left={3}
+                      top="50%"
+                      transform="translateY(-50%)"
+                      color="gray.400"
+                      zIndex={2}
+                    >
                       <Mail size={18} />
-                    </InputLeftElement>
+                    </Box>
                     <Input
                       type="email"
                       value={formData.email}
@@ -133,22 +135,29 @@ const Login = () => {
                       _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
                       pl={12}
                     />
-                  </InputGroup>
-                </FormControl>
+                  </Box>
+                </Box>
 
-                <FormControl>
-                  <FormLabel 
+                <Box width="full">
+                  <Text 
                     fontSize="sm" 
                     fontWeight="bold" 
                     color="gray.700"
                     mb={3}
                   >
                     🔒 Password
-                  </FormLabel>
-                  <InputGroup>
-                    <InputLeftElement color="gray.400">
+                  </Text>
+                  <Box position="relative">
+                    <Box
+                      position="absolute"
+                      left={3}
+                      top="50%"
+                      transform="translateY(-50%)"
+                      color="gray.400"
+                      zIndex={2}
+                    >
                       <Lock size={18} />
-                    </InputLeftElement>
+                    </Box>
                     <Input
                       type={showPassword ? 'text' : 'password'}
                       value={formData.password}
@@ -176,8 +185,8 @@ const Login = () => {
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </Button>
-                  </InputGroup>
-                </FormControl>
+                  </Box>
+                </Box>
 
                 <Button
                   type="submit"
@@ -189,14 +198,16 @@ const Login = () => {
                   shadow="lg"
                   _hover={{ transform: 'translateY(-2px)', shadow: 'xl' }}
                   transition="all 0.2s"
-                  isLoading={isLoading}
-                  loadingText="Signing in..."
-                  leftIcon={<LogIn size={20} />}
+                  loading={isLoading}
+                  disabled={isLoading}
                 >
-                  Sign In
+                  <HStack gap={2}>
+                    <LogIn size={20} />
+                    <Text>{isLoading ? 'Signing in...' : 'Sign In'}</Text>
+                  </HStack>
                 </Button>
 
-                <Divider />
+                <Separator />
 
                 <VStack gap={2} textAlign="center">
                   <Text color="gray.600" fontSize="sm">
@@ -204,9 +215,9 @@ const Login = () => {
                   </Text>
                   <HStack gap={1} fontSize="sm">
                     <Text color="gray.500">Don't have an account?</Text>
-                    <Link color="blue.500" fontWeight="bold">
+                    <Text color="blue.500" fontWeight="bold" cursor="pointer">
                       Sign up here
-                    </Link>
+                    </Text>
                   </HStack>
                 </VStack>
               </VStack>

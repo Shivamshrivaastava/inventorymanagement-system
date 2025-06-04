@@ -1,147 +1,149 @@
 
-import {
-  HStack,
-  VStack,
-  Select,
-  Input,
-  Text,
-  Box,
-  Flex,
-  Button,
+import { useState } from 'react';
+import { 
+  Box, 
+  HStack, 
+  VStack, 
+  Input, 
+  Button, 
+  Text 
 } from '@chakra-ui/react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import {
-  setSortBy,
-  setSortOrder,
-  setFilterMinPrice,
-  setFilterMaxPrice,
-  setFilterMinQuantity,
-  setProductsPerPage,
-} from '../store/slices/productsSlice';
+import { Search, Plus, Filter } from 'lucide-react';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
-const FilterSortControls = () => {
-  const dispatch = useAppDispatch();
-  const {
-    sortBy,
-    sortOrder,
-    filterMinPrice,
-    filterMaxPrice,
-    filterMinQuantity,
-    productsPerPage,
-  } = useAppSelector((state) => state.products);
+interface FilterSortControlsProps {
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+  category: string;
+  onCategoryChange: (value: string) => void;
+  sortBy: string;
+  onSortChange: (value: string) => void;
+  onAddProduct: () => void;
+  lowInventoryOnly: boolean;
+  onLowInventoryToggle: () => void;
+}
 
+const FilterSortControls = ({
+  searchTerm,
+  onSearchChange,
+  category,
+  onCategoryChange,
+  sortBy,
+  onSortChange,
+  onAddProduct,
+  lowInventoryOnly,
+  onLowInventoryToggle,
+}: FilterSortControlsProps) => {
   return (
-    <Box 
-      bg="white" 
-      p={6} 
-      borderRadius="2xl" 
-      shadow="lg"
-      border="1px solid"
-      borderColor="gray.200"
-    >
-      <VStack gap={6} align="stretch">
-        <Text fontSize="xl" fontWeight="bold" color="gray.800">
-          🎛️ Filter & Sort Controls
-        </Text>
-        
-        <Flex gap={6} wrap="wrap">
-          <VStack align="stretch" flex={1} minW="200px">
-            <Text fontWeight="semibold" color="gray.700">Sort By</Text>
-            <HStack>
-              <Select
-                value={sortBy}
-                onChange={(e) => dispatch(setSortBy(e.target.value as 'title' | 'price' | 'quantity'))}
-                bg="gray.50"
-                borderColor="gray.300"
-                borderRadius="xl"
-              >
-                <option value="title">Title</option>
-                <option value="price">Price</option>
-                <option value="quantity">Quantity</option>
-              </Select>
-              <Select
-                value={sortOrder}
-                onChange={(e) => dispatch(setSortOrder(e.target.value as 'asc' | 'desc'))}
-                bg="gray.50"
-                borderColor="gray.300"
-                borderRadius="xl"
-              >
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </Select>
-            </HStack>
-          </VStack>
-
-          <VStack align="stretch" flex={1} minW="200px">
-            <Text fontWeight="semibold" color="gray.700">Price Range (₹)</Text>
-            <HStack>
-              <Input
-                type="number"
-                placeholder="Min"
-                value={filterMinPrice}
-                onChange={(e) => dispatch(setFilterMinPrice(Number(e.target.value) || 0))}
-                bg="gray.50"
-                borderColor="gray.300"
-                borderRadius="xl"
-              />
-              <Input
-                type="number"
-                placeholder="Max"
-                value={filterMaxPrice}
-                onChange={(e) => dispatch(setFilterMaxPrice(Number(e.target.value) || 25000))}
-                bg="gray.50"
-                borderColor="gray.300"
-                borderRadius="xl"
-              />
-            </HStack>
-          </VStack>
-
-          <VStack align="stretch" flex={1} minW="200px">
-            <Text fontWeight="semibold" color="gray.700">Min Quantity</Text>
-            <Input
-              type="number"
-              placeholder="Min quantity"
-              value={filterMinQuantity}
-              onChange={(e) => dispatch(setFilterMinQuantity(Number(e.target.value) || 0))}
-              bg="gray.50"
-              borderColor="gray.300"
-              borderRadius="xl"
-            />
-          </VStack>
-
-          <VStack align="stretch" minW="150px">
-            <Text fontWeight="semibold" color="gray.700">Items Per Page</Text>
-            <Select
-              value={productsPerPage}
-              onChange={(e) => dispatch(setProductsPerPage(Number(e.target.value)))}
-              bg="gray.50"
-              borderColor="gray.300"
-              borderRadius="xl"
+    <Box bg="white" p={6} borderRadius="xl" shadow="lg" border="1px" borderColor="gray.200">
+      <VStack gap={4}>
+        <HStack width="full" gap={4} flexWrap="wrap">
+          <Box position="relative" flex="1" minW="250px">
+            <Box
+              position="absolute"
+              left={3}
+              top="50%"
+              transform="translateY(-50%)"
+              color="gray.400"
+              zIndex={2}
             >
-              <option value={5}>5 items</option>
-              <option value={10}>10 items</option>
-              <option value={20}>20 items</option>
-              <option value={50}>50 items</option>
-            </Select>
-          </VStack>
-        </Flex>
+              <Search size={18} />
+            </Box>
+            <Input
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => onSearchChange(e.target.value)}
+              size="lg"
+              borderRadius="xl"
+              bg="gray.50"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'blue.400' }}
+              _focus={{ borderColor: 'blue.500', shadow: 'outline' }}
+              pl={12}
+            />
+          </Box>
+          
+          <Button
+            colorScheme="blue"
+            size="lg"
+            borderRadius="xl"
+            fontWeight="semibold"
+            shadow="md"
+            _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+            transition="all 0.2s"
+            onClick={onAddProduct}
+          >
+            <HStack gap={2}>
+              <Plus size={20} />
+              <Text>Add Product</Text>
+            </HStack>
+          </Button>
+        </HStack>
 
-        <Button
-          onClick={() => {
-            dispatch(setFilterMinPrice(0));
-            dispatch(setFilterMaxPrice(25000));
-            dispatch(setFilterMinQuantity(0));
-            dispatch(setSortBy('title'));
-            dispatch(setSortOrder('asc'));
-          }}
-          variant="outline"
-          colorScheme="gray"
-          size="sm"
-          alignSelf="flex-start"
-          borderRadius="xl"
-        >
-          🔄 Reset Filters
-        </Button>
+        <HStack width="full" gap={4} flexWrap="wrap">
+          <Box minW="200px">
+            <Text fontSize="sm" fontWeight="semibold" color="gray.700" mb={2}>
+              Category
+            </Text>
+            <Select value={category} onValueChange={onCategoryChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="Electronics">Electronics</SelectItem>
+                <SelectItem value="Clothing">Clothing</SelectItem>
+                <SelectItem value="Books">Books</SelectItem>
+                <SelectItem value="Home & Garden">Home & Garden</SelectItem>
+                <SelectItem value="Sports">Sports</SelectItem>
+              </SelectContent>
+            </Select>
+          </Box>
+
+          <Box minW="200px">
+            <Text fontSize="sm" fontWeight="semibold" color="gray.700" mb={2}>
+              Sort By
+            </Text>
+            <Select value={sortBy} onValueChange={onSortChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sort by..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name (A-Z)</SelectItem>
+                <SelectItem value="name-desc">Name (Z-A)</SelectItem>
+                <SelectItem value="price">Price (Low to High)</SelectItem>
+                <SelectItem value="price-desc">Price (High to Low)</SelectItem>
+                <SelectItem value="stock">Stock (Low to High)</SelectItem>
+                <SelectItem value="stock-desc">Stock (High to Low)</SelectItem>
+              </SelectContent>
+            </Select>
+          </Box>
+
+          <Box>
+            <Text fontSize="sm" fontWeight="semibold" color="gray.700" mb={2}>
+              Filters
+            </Text>
+            <Button
+              variant={lowInventoryOnly ? "solid" : "outline"}
+              colorScheme={lowInventoryOnly ? "orange" : "gray"}
+              size="md"
+              borderRadius="xl"
+              onClick={onLowInventoryToggle}
+              _hover={{ transform: 'translateY(-1px)' }}
+            >
+              <HStack gap={2}>
+                <Filter size={16} />
+                <Text>Low Stock Only</Text>
+              </HStack>
+            </Button>
+          </Box>
+        </HStack>
       </VStack>
     </Box>
   );

@@ -108,10 +108,12 @@ const Navigation = () => {
               size="sm"
               onClick={handleLogout}
               borderRadius="xl"
-              leftIcon={<LogOut size={16} />}
               _hover={{ transform: 'translateY(-1px)' }}
             >
-              Logout
+              <HStack gap={2}>
+                <LogOut size={16} />
+                <Text>Logout</Text>
+              </HStack>
             </Button>
           </HStack>
         </HStack>
