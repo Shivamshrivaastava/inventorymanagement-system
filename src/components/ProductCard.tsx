@@ -10,14 +10,19 @@ import {
   Flex,
   Image,
   useDisclosure,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './ui/alert-dialog';
 import { Product } from '../store/slices/productsSlice';
 
 interface ProductCardProps {
@@ -28,7 +33,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onEdit, onToggleLowInventory, onDelete }: ProductCardProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   const handleDelete = () => {
@@ -59,7 +64,9 @@ const ProductCard = ({ product, onEdit, onToggleLowInventory, onDelete }: Produc
             w="full"
             h="200px"
             objectFit="cover"
-            fallbackSrc="https://via.placeholder.com/400x200?text=Product+Image"
+            onError={(e) => {
+              e.currentTarget.src = "https://via.placeholder.com/400x200?text=Product+Image";
+            }}
           />
           {product.lowInventory && (
             <Badge 
@@ -140,49 +147,38 @@ const ProductCard = ({ product, onEdit, onToggleLowInventory, onDelete }: Produc
               >
                 {product.lowInventory ? "✅ Remove Flag" : "⚠️ Mark Low"}
               </Button>
-              <Button
-                colorScheme="red"
-                size="sm"
-                onClick={onOpen}
-                flex={1}
-                borderRadius="xl"
-                fontWeight="semibold"
-                _hover={{ transform: 'translateY(-1px)', shadow: 'md' }}
-                transition="all 0.2s"
-              >
-                🗑️ Delete
-              </Button>
+              
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    flex={1}
+                    borderRadius="xl"
+                    fontWeight="semibold"
+                    _hover={{ transform: 'translateY(-1px)', shadow: 'md' }}
+                    transition="all 0.2s"
+                  >
+                    🗑️ Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Product</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete "{product.title}"? This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel ref={cancelRef}>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </Flex>
           </Stack>
         </Card.Body>
       </Card.Root>
-
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent borderRadius="2xl">
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Product
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Are you sure you want to delete "{product.title}"? This action cannot be undone.
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" onClick={handleDelete} ml={3}>
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
     </>
   );
 };
